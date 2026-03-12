@@ -4,13 +4,12 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import { portfolioConfig } from "@/config/portfolio";
 
-const NAV_LINKS = [
-  { href: "#works", label: "Works" },
-  { href: "#about", label: "About" },
-  { href: "#stack", label: "Stack" },
-  { href: "#contact", label: "Contact" },
-];
+const NAV_LINKS = portfolioConfig.footerLinks.map((link) => ({
+  href: link.href,
+  label: link.label,
+}));
 
 const SCROLL_THRESHOLD = 40;
 
@@ -163,13 +162,25 @@ export function NavBar() {
         animate="visible"
         className={`fixed inset-x-0 top-0 z-50 flex items-center justify-between px-8 py-6 text-white transition-all duration-500 ${
           isScrolled
-            ? "border-b border-white/5 bg-black/30 backdrop-blur-md"
+            ? "bg-black/30 backdrop-blur-md"
             : "bg-transparent"
         }`}
       >
-        <div className="select-none text-sm font-light uppercase tracking-[0.4em] text-white">
-          C-O-N-N-E-C-T
-        </div>
+        <Link 
+          href="/"
+          className="group relative flex items-center font-mono text-lg font-bold tracking-tighter"
+        >
+          <span className="text-white/40 transition-colors group-hover:text-cyan-400/80 mr-1">&lt;</span>
+          <span className="bg-gradient-to-r from-white via-white to-white/70 bg-clip-text text-transparent transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-cyan-300 group-hover:via-white group-hover:to-cyan-300">
+            Ajay
+          </span>
+          <span className="text-cyan-400 transition-colors group-hover:text-white ml-1">/&gt;</span>
+          <motion.span 
+            className="ml-1.5 h-4 w-1.5 bg-cyan-400"
+            animate={{ opacity: [1, 0] }}
+            transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+          />
+        </Link>
 
         <div className="hidden items-center gap-8 md:flex">
           {NAV_LINKS.map((link, i) => (

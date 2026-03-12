@@ -172,6 +172,15 @@ body.hide-default-cursor * {
   }
 }
 
+@keyframes border-trace {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -1;
+  }
+}
+
 /* Shake animation for form errors */
 @keyframes shake {
   0%,

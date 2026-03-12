@@ -13,7 +13,7 @@ const isTouchDevice = () =>
   (window.matchMedia?.("(pointer: coarse)")?.matches ?? "ontouchstart" in window);
 
 export function CustomCursor() {
-  const [enabled, setEnabled] = useState(false);
+  const [enabled] = useState(() => !isTouchDevice());
   const [cursor, setCursor] = useState<CursorState>({
     x: 0,
     y: 0,
@@ -22,8 +22,7 @@ export function CustomCursor() {
   const [interactive, setInteractive] = useState(false);
 
   useEffect(() => {
-    if (isTouchDevice()) return;
-    setEnabled(true);
+    if (!enabled) return;
     document.body.classList.add("hide-default-cursor");
 
     const handleMove = (event: MouseEvent) => {
@@ -62,7 +61,7 @@ export function CustomCursor() {
         el.removeEventListener("mouseleave", handleLeaveInteractive);
       });
     };
-  }, []);
+  }, [enabled]);
 
   if (!enabled) return null;
 
@@ -99,4 +98,3 @@ export function CustomCursor() {
     </div>
   );
 }
-

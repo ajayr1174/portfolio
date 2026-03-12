@@ -103,23 +103,44 @@ export function Hero() {
             initial="hidden"
             animate="visible"
           >
-            <button
-              type="button"
-              className="relative overflow-hidden border border-cyan-400/60 px-5 py-2.5 text-sm font-medium uppercase tracking-[0.16em] text-white transition-colors data-[cursor=interactive]:cursor-none"
+            <a
+              href="#works"
+              className="group relative overflow-hidden p-px text-sm font-medium uppercase tracking-[0.16em] text-white transition-colors data-[cursor=interactive]:cursor-none"
               data-cursor="interactive"
             >
-              <span className="relative z-10">View Selected Works</span>
-              <span className="pointer-events-none absolute inset-0 bg-cyan-400/10 opacity-0 transition-opacity duration-300" />
-              <span className="pointer-events-none absolute inset-0 border border-cyan-400/0 [mask:linear-gradient(90deg,#000_0,_#000_50%,transparent_50%,transparent_100%)] [mask-size:200%_100%] [mask-position:left] transition-[mask-position,border-color] duration-300" />
-            </button>
+              <span className="pointer-events-none absolute inset-0 bg-cyan-400/45" />
+              <svg
+                className="pointer-events-none absolute inset-0 h-full w-full"
+                viewBox="0 0 100 40"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <rect
+                  x="0.75"
+                  y="0.75"
+                  width="98.5"
+                  height="38.5"
+                  fill="none"
+                  stroke="rgba(34, 211, 238, 1)"
+                  strokeWidth="1.5"
+                  pathLength="1"
+                  strokeDasharray="0.12 0.88"
+                  className="opacity-0 animate-[border-trace_1.4s_linear_infinite] [animation-play-state:paused] group-hover:opacity-100 group-hover:[animation-play-state:running]"
+                />
+              </svg>
+              <span className="relative z-10 block bg-[#070A0E] px-5 py-2.5">
+                View Selected Works
+              </span>
+            </a>
 
-            <button
-              type="button"
+            <a
+              href="/Ajay_Singh_Resume.pdf"
+              download="Ajay_Singh_Resume.pdf"
               className="border-b border-transparent text-sm font-medium text-white/70 transition-colors hover:border-white hover:text-white"
               data-cursor="interactive"
             >
               Request Resume
-            </button>
+            </a>
           </motion.div>
         </section>
 

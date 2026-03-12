@@ -1,7 +1,6 @@
-// Portfolio Configuration File
-// All portfolio content is centralized here for easy updates
+import type { PortfolioContent } from "@/domain/portfolio/types";
 
-export const portfolioConfig = {
+export const portfolioConfig: PortfolioContent = {
   // Selected Works / Projects Section
   projects: [
     {
@@ -54,6 +53,13 @@ export const portfolioConfig = {
       subtitle: "Persistent Systems — Oct 2024 - Present",
       description:
         "Leading frontend development, building scalable React applications and maintaining production systems.",
+      achievements: [
+        "Co-Led frontend development as part of a 2-member team, delivering a production-ready React application using PixiJS within 1 month.",
+        "Translated Functional Requirement Documents (FRDs) and Figma designs into scalable, reusable React components.",
+        "Resolved 100+ UI/UX issues, aligning the application with approved Figma designs and improving usability.",
+        "Refactored and standardized 15+ React components, improving code maintainability and long-term scalability.",
+        "Identified, debugged, and fixed multiple critical frontend defects across development and production environments."
+      ]
     },
     {
       id: 2,
@@ -62,6 +68,14 @@ export const portfolioConfig = {
       subtitle: "Persistent Systems — Jul 2022 - Sep 2024",
       description:
         "Developed high-performance React applications, OpenSearch dashboards POC, and automation frameworks.",
+      achievements: [
+        "Spearheaded the OpenSearch Dashboards POC initiative, delivering critical feature enhancements that secured stakeholder approval.",
+        "Engineered high-performance React.js components with comprehensive unit test coverage using Jest and Mocha, achieving 98% test reliability.",
+        "Implemented data persistence solutions utilizing both SQL (MySQL) and NoSQL (MongoDB) technologies.",
+        "Leveraged Redux for sophisticated state management while implementing responsive interfaces with Material UI.",
+        "Developed an extensive automated testing framework with 1500+ test cases using WebdriverIO and Cucumber, achieving 90% automation.",
+        "Optimized test execution through parallel processing techniques, reducing total automation suite runtime by 40%."
+      ]
     },
     {
       id: 3,
@@ -111,17 +125,18 @@ export const portfolioConfig = {
     },
     {
       label: "LinkedIn",
-      value: "linkedin.com/in/ajay-singh",
-      href: "https://linkedin.com",
+      value: "linkedin.com/in/ajay-singh-219b4a199",
+      href: "https://www.linkedin.com/in/ajay-singh-219b4a199/",
       icon: "Linkedin",
     },
   ],
 
-  // Footer Section
+  // Footer Section (also used for NavBar)
   footerLinks: [
     { href: "#works", label: "Projects" },
-    { href: "#about", label: "About" },
-    { href: "#stack", label: "Tech Stack" },
+    { href: "#about", label: "Experience" },
+    { href: "#stack", label: "Stack" },
+    { href: "#insights", label: "Insights" },
     { href: "#contact", label: "Contact" },
   ],
 
@@ -133,7 +148,7 @@ export const portfolioConfig = {
     },
     {
       icon: "Linkedin",
-      href: "https://linkedin.com",
+      href: "https://www.linkedin.com/in/ajay-singh-219b4a199/",
       label: "LinkedIn",
     },
   ],

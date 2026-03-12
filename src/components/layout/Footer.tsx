@@ -1,16 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Github, Linkedin, Twitter } from "lucide-react";
 import Link from "next/link";
 import { portfolioConfig } from "@/config/portfolio";
-
-// Icon mapping for dynamic icon rendering
-const iconMap: Record<string, React.ComponentType<any>> = {
-  Github,
-  Linkedin,
-  Twitter,
-};
+import { resolvePortfolioIcon } from "@/lib/iconRegistry";
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -18,13 +11,6 @@ const sectionVariants = {
     opacity: 1,
     y: 0,
     transition: { duration: 0.6 },
-  },
-};
-
-const sparkleVariants = {
-  animate: {
-    rotate: 360,
-    y: [0, -8, 0],
   },
 };
 
@@ -37,16 +23,12 @@ export function Footer() {
       whileInView="visible"
       viewport={{ once: true, amount: 0.5 }}
     >
-      {/* Gradient Background */}
       <div className="absolute inset-0 bg-linear-to-b from-transparent via-cyan-500/5 to-cyan-500/10 pointer-events-none" />
       <div className="absolute inset-0 border-t border-cyan-400/20 pointer-events-none" />
 
-      {/* Glass Tier 1 Container */}
       <div className="glass-tier-1 m-8 md:m-12 p-8 md:p-12">
         <div className="max-w-6xl mx-auto relative">
-          {/* Row 1: Logo, Nav Links, Social Icons */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mb-8 md:mb-10">
-            {/* Logo */}
             <motion.div
               className="flex flex-col"
               initial={{ opacity: 0, y: 20 }}
@@ -62,7 +44,6 @@ export function Footer() {
               </p>
             </motion.div>
 
-            {/* Navigation Links with Separators */}
             <motion.div
               className="flex flex-col justify-center"
               initial={{ opacity: 0, y: 20 }}
@@ -79,15 +60,14 @@ export function Footer() {
                     >
                       {link.label}
                     </Link>
-                    {index < portfolioConfig.footerLinks.length - 1 && (
+                    {index < portfolioConfig.footerLinks.length - 1 ? (
                       <span className="text-white/15">·</span>
-                    )}
+                    ) : null}
                   </div>
                 ))}
               </div>
             </motion.div>
 
-            {/* Social Icons */}
             <motion.div
               className="flex items-center justify-start md:justify-end gap-6"
               initial={{ opacity: 0, y: 20 }}
@@ -96,7 +76,7 @@ export function Footer() {
               transition={{ delay: 0.2, duration: 0.5 }}
             >
               {portfolioConfig.socialLinks.map((social) => {
-                const IconComponent = iconMap[social.icon];
+                const IconComponent = resolvePortfolioIcon(social.icon);
                 return (
                   <motion.a
                     key={social.label}
@@ -122,10 +102,8 @@ export function Footer() {
             </motion.div>
           </div>
 
-          {/* Divider */}
           <div className="w-full h-px bg-linear-to-r from-transparent via-white/10 to-transparent my-8 md:my-10" />
 
-          {/* Row 2: Copyright, Credits */}
           <motion.div
             className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs md:text-sm text-white/30"
             initial={{ opacity: 0 }}
@@ -141,7 +119,6 @@ export function Footer() {
             </p>
           </motion.div>
 
-          {/* Sparkle Animation - Bottom Right */}
           <motion.div
             className="absolute bottom-6 right-6 md:bottom-8 md:right-8 text-2xl text-cyan-400/20 pointer-events-none select-none"
             animate={{ rotate: 360, y: [0, -8, 0] }}

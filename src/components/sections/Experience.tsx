@@ -1,96 +1,54 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import { SectionShell } from "@/components/common/SectionShell";
 import { portfolioConfig } from "@/config/portfolio";
-
-const sectionVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6 },
-  },
-};
+import type { TimelineEntry as TimelineEntryModel } from "@/domain/portfolio/types";
 
 export function Experience() {
   const [activeId, setActiveId] = useState<number | null>(null);
-  const [spineWidth, setSpineWidth] = useState(0);
 
   return (
-    <motion.section
-      className="relative w-full py-24"
-      style={{
-        background: `radial-gradient(circle at 30% 60%, rgba(31, 41, 55, 0.3) 0, transparent 55%), radial-gradient(circle at 70% 20%, rgba(11, 17, 32, 0.3) 0, transparent 55%), #070A0E`,
-      }}
-      variants={sectionVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.15 }}
+    <SectionShell
+      id="about"
+      title={portfolioConfig.sections.experience.title}
+      contentClassName="relative py-12 px-4 md:px-0 overflow-x-auto md:overflow-x-visible"
+      titleClassName="text-3xl md:text-4xl font-light tracking-[0.25em] text-white uppercase"
+      titleUnderlineClassName="w-16 h-px bg-cyan-400/60 mt-3"
+      underlineWidth={64}
     >
-      <div className="max-w-6xl mx-auto px-8">
-        {/* Section Heading */}
-        <div className="flex flex-col items-center mb-16">
-          <motion.h2
-            className="text-3xl md:text-4xl font-light tracking-[0.25em] text-white uppercase"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            Education & Experience
-          </motion.h2>
-          <motion.div
-            className="w-16 h-px bg-cyan-400/60 mt-3"
-            initial={{ width: 0 }}
-            whileInView={{ width: 64 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-          />
-        </div>
+      <motion.div
+        className="absolute left-1/2 top-0 h-full w-px bg-white/15 -translate-x-1/2"
+        initial={{ height: 0 }}
+        whileInView={{ height: "100%" }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.2, duration: 1.2, ease: "easeInOut" }}
+      />
 
-        {/* Timeline Container */}
-        <div className="relative py-12 px-4 md:px-0 overflow-x-auto md:overflow-x-visible">
-          {/* Central Spine Line */}
-          <motion.div
-            className="absolute left-1/2 top-0 h-full w-px bg-white/15 -translate-x-1/2"
-            initial={{ height: 0 }}
-            whileInView={{ height: "100%" }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 1.2, ease: "easeInOut" }}
+      <div className="relative flex flex-col gap-8 md:gap-12">
+        {portfolioConfig.timeline.map((entry, index) => (
+          <TimelineEntry
+            key={entry.id}
+            entry={entry}
+            index={index}
+            isActive={activeId === entry.id}
+            onHover={setActiveId}
           />
-
-          {/* Timeline Entries */}
-          <div className="relative flex flex-col gap-8 md:gap-12">
-            {portfolioConfig.timeline.map((entry, index) => (
-              <TimelineEntry
-                key={entry.id}
-                entry={entry}
-                index={index}
-                isActive={activeId === entry.id}
-                onHover={setActiveId}
-              />
-            ))}
-          </div>
-        </div>
+        ))}
       </div>
-    </motion.section>
+    </SectionShell>
   );
 }
 
 interface TimelineEntryProps {
-  entry: (typeof portfolioConfig.timeline)[0];
+  entry: TimelineEntryModel;
   index: number;
   isActive: boolean;
   onHover: (id: number | null) => void;
 }
 
-function TimelineEntry({
-  entry,
-  index,
-  isActive,
-  onHover,
-}: TimelineEntryProps) {
+function TimelineEntry({ entry, index, isActive, onHover }: TimelineEntryProps) {
   const isTop = entry.position === "top";
 
   return (
@@ -103,7 +61,6 @@ function TimelineEntry({
       onMouseEnter={() => onHover(entry.id)}
       onMouseLeave={() => onHover(null)}
     >
-      {/* Vertical connector line */}
       <motion.div
         className={`w-[1px] h-8 bg-white/20 ${isTop ? "order-first mb-2" : "order-last mt-2"}`}
         initial={{ height: 0 }}
@@ -112,7 +69,6 @@ function TimelineEntry({
         transition={{ delay: 0.2 + index * 0.1, duration: 0.4 }}
       />
 
-      {/* Center Dot */}
       <motion.div
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center z-10"
         initial={{ scale: 0 }}
@@ -126,45 +82,61 @@ function TimelineEntry({
           }`}
         />
 
-        {/* Pulsing animation for active dot */}
-        {isActive && (
+        {isActive ? (
           <motion.div
             className="absolute inset-0 rounded-full bg-cyan-400/30"
             animate={{ scale: [1, 2] }}
             transition={{ duration: 1.5, repeat: Infinity }}
           />
-        )}
+        ) : null}
       </motion.div>
 
-      {/* Content */}
       <div
-        className={`w-full md:w-1/2 flex justify-center ${isTop ? "order-last" : "order-first"}`}
+        className={`w-full md:w-1/2 flex justify-center ${isTop ? "order-last md:justify-start md:pl-12" : "order-first md:justify-end md:pr-12"}`}
       >
         <motion.div
-          className="text-center max-w-[180px] px-4"
+          className="text-center md:text-left max-w-[400px] px-4 cursor-default w-full"
           initial={{ opacity: 0, x: isTop ? 20 : -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 + index * 0.15, duration: 0.5 }}
+          data-cursor="interactive"
         >
-          <h3 className="text-sm font-semibold text-white/80">{entry.title}</h3>
-          <p className="text-xs text-white/40 mt-1 leading-[1.5]">
-            {entry.subtitle}
-          </p>
+          <h3 className={`text-sm font-semibold transition-colors duration-300 ${isActive ? "text-cyan-300" : "text-white/80"}`}>{entry.title}</h3>
+          <p className="text-xs text-white/40 mt-1 leading-[1.5]">{entry.subtitle}</p>
 
-          {/* Tooltip */}
           <AnimatePresence>
-            {isActive && (
+            {isActive ? (
               <motion.div
-                className="text-xs text-white/60 mt-2 p-2 rounded-lg bg-white/5 border border-white/10"
-                initial={{ opacity: 0, y: -4 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -4 }}
-                transition={{ duration: 0.2 }}
+                className="mt-4 p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md shadow-lg overflow-hidden"
+                initial={{ opacity: 0, y: -10, height: 0 }}
+                animate={{ opacity: 1, y: 0, height: "auto" }}
+                exit={{ opacity: 0, y: -10, height: 0 }}
+                transition={{ duration: 0.3 }}
               >
-                {entry.description}
+                <div className="text-[11px] text-white/60 mb-2 leading-relaxed flex items-start text-left gap-2">
+                  <span className="text-cyan-400/50 mt-[2px] shrink-0 text-[10px]">▹</span>
+                  <span>{entry.description}</span>
+                </div>
+                
+                {entry.achievements && entry.achievements.length > 0 && (
+                  <ul className="flex flex-col gap-2 mt-3">
+                    {entry.achievements.map((achievement, i) => (
+                      <motion.li 
+                        key={i} 
+                        className="text-[11px] text-white/60 leading-relaxed flex items-start text-left gap-2"
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: i * 0.05 + 0.1, duration: 0.3 }}
+                      >
+                        <span className="text-cyan-400/50 mt-[2px] shrink-0 text-[10px]">▹</span>
+                        <span>{achievement}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                )}
               </motion.div>
-            )}
+            ) : null}
           </AnimatePresence>
         </motion.div>
       </div>

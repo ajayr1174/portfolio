@@ -1,9 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { SiKubernetes, SiGo, SiReact } from "react-icons/si";
-import { FaAws } from "react-icons/fa";
-import { RiDatabase2Line, RiSettings3Line } from "react-icons/ri";
+import {
+  SiDocker,
+  SiNextdotjs,
+  SiPostgresql,
+  SiReact,
+  SiTailwindcss,
+  SiTypescript,
+} from "react-icons/si";
+import { FaJava } from "react-icons/fa";
+import { TbBrandAzure } from "react-icons/tb";
 
 const cardVariants = {
   hidden: { opacity: 0, x: 40 },
@@ -63,7 +70,7 @@ function IconCell({ children, label }: IconCellProps) {
 export function GlassSkillGrid() {
   return (
     <motion.aside
-      className="relative hidden w-70 min-h-65 rounded-2xl border border-white/10 bg-white/5 p-5 text-white shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-xl md:block"
+      className="relative hidden w-70 min-h-80 rounded-2xl border border-white/10 bg-white/5 p-5 text-white shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-xl md:block"
       variants={cardVariants}
       initial="hidden"
       animate="visible"
@@ -81,28 +88,34 @@ export function GlassSkillGrid() {
       </div>
 
       <motion.div
-        className="grid grid-cols-2 grid-rows-3"
+        className="grid grid-cols-2 grid-rows-4"
         variants={iconsContainer}
         initial="hidden"
         animate="visible"
       >
-        <IconCell label="Kubernetes">
-          <SiKubernetes />
+        <IconCell label="TypeScript">
+          <SiTypescript />
         </IconCell>
-        <IconCell label="Databases">
-          <RiDatabase2Line />
+        <IconCell label="Java">
+          <FaJava />
         </IconCell>
         <IconCell label="React">
           <SiReact />
         </IconCell>
-        <IconCell label="Systems">
-          <RiSettings3Line />
+        <IconCell label="Azure">
+          <TbBrandAzure />
         </IconCell>
-        <IconCell label="AWS">
-          <FaAws />
+        <IconCell label="Next">
+          <SiNextdotjs />
         </IconCell>
-        <IconCell label="Go">
-          <SiGo />
+        <IconCell label="Docker">
+          <SiDocker />
+        </IconCell>
+        <IconCell label="Tailwind">
+          <SiTailwindcss />
+        </IconCell>
+        <IconCell label="PostgreSQL">
+          <SiPostgresql />
         </IconCell>
       </motion.div>
 
